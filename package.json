@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm --watch app.js"
+    "start": "npm --watch app.js",
+    "seed":  "node db/populated.js postgresql://postgres:123@localhost:5432/top_users"
   },
   "keywords": [],
   "author": "",
