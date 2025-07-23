@@ -1,13 +1,14 @@
+import {pool} from '../db/pool.js';
 
 
-
-export const getController =  (req , res)=>{
+export const getController = async (req , res)=>{
     console.log("getController() running" );
-     res.status(200).json("users will be logged here");
+    const result = await pool.query("SELECT * FROM usernames");
+     res.status(200).json(result);
 }
 
-export const postController =  (req,res)=>{
+export const postController = async (req,res)=>{
     console.log("postController() running");
-    console.log(`User is ${req.body.username}`);
+    await pool.query("INSERT INTO usernames (username) VALUES  ($1)" , [req.body.username]);
     res.status(200).json({msg:"Ok!"});
 }
