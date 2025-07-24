@@ -17,5 +17,6 @@ export const searchUsernames= async(req,res)=>{
 }
 
 export const deleteHelper = async ()=>{
-    await pool.query('DELETE FROM usernames');
+    await pool.query(`DELETE FROM usernames;
+                     ALTER SEQUENCE  public.usernames_id_seq RESTART WITH 1;`);
 }
