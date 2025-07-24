@@ -1,6 +1,7 @@
 import {Router} from 'express';
-import {getController , postController} from '../controllers/appCtrl.js';
+import {getController , postController , deleteController} from '../controllers/appCtrl.js';
 export const appRouter = Router();
 
 appRouter.get('/'  , getController);
 appRouter.post('/new' , postController);
+appRouter.get('/delete' , deleteController);

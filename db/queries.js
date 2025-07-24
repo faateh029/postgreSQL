@@ -15,3 +15,7 @@ export const searchUsernames= async(req,res)=>{
     
     return result.rows;
 }
+
+export const deleteHelper = async ()=>{
+    await pool.query('DELETE FROM usernames');
+}

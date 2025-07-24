@@ -1,5 +1,5 @@
 import {pool} from '../db/pool.js';
-import { getUserNames , postNewUser, searchUsernames } from '../db/queries.js';
+import { getUserNames , postNewUser, searchUsernames , deleteHelper } from '../db/queries.js';
 
 
 export const getController = async (req , res)=>{
@@ -18,4 +18,10 @@ export const postController = async (req,res)=>{
     console.log("postController() running");
     await postNewUser(req,res);
     res.status(200).json();
+}
+
+
+export const deleteController = async (req,res)=>{
+        await deleteHelper();
+        res.status(200).json({msg:"All users deleted"});
 }
