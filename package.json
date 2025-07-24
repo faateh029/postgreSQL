@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "pg": "^8.16.3"
   },
@@ -10,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm --watch app.js",
-    "seed":  "node db/populated.js postgresql://postgres:123@localhost:5432/top_users"
+    "seed": "node db/populated.js postgresql://postgres:123@localhost:5432/top_users"
   },
   "keywords": [],
   "author": "",
