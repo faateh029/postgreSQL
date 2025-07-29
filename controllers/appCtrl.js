@@ -1,23 +1,20 @@
 import {pool} from '../db/pool.js';
-import { getUserNames , postNewUser, searchUsernames , deleteHelper  , paginatedResults} from '../db/queries.js';
+import {  postNewUser, searchUsernames , deleteHelper  , paginatedResults} from '../db/queries.js';
 
 
 export const getController = async (req , res)=>{
   
-    try {
-         
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({msg:"server side error"}) 
-    }
+   
     console.log("getController() running");
-    let result='';
-    if(req.query.search){
-        result = await searchUsernames(req,res);
-        //console.log(req.query.search , result.rows);
-        return res.status(200).json(result);
-    }
+    let result={};
+    // if(req.query.search){
+    //     result = await searchUsernames(req,res);
+    //     //console.log(req.query.search , result.rows);
+    //     return res.status(200).json(result);
+    // }
+    console.log("before pagination")
      result = await paginatedResults(req,res);
+     console.log("after pagination")
      res.status(200).json(result);
 }
 
