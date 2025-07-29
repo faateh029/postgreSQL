@@ -1,3 +1,4 @@
+import { parse } from 'dotenv';
 import {pool} from './pool.js';
 // export const getUserNames = async ()=>{ 
 //    const result = await pool.query("SELECT * FROM usernames");  
@@ -7,9 +8,15 @@ const paginatedResults = async (req,res)=>{
       const page = parseInt(req.query.page) ||1; 
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page-1)*limit;
-       const result = await pool.query(`SELECT * FROM usernames ORDER BY LIMIT $1 OFFSET $2` , [limit,offset])
-
-       return result.rows;
+       const Paginatedresult = await pool.query(`SELECT * FROM usernames ORDER BY LIMIT $1 OFFSET $2` , [limit,offset])
+      const result = {
+        page , 
+        limit , 
+        total:parseInt(total.rows[0].count) , 
+        totalPages:Math.ceil(total.rows[0].count/limit),
+        data : paginatedResult.rows
+      }
+       return  result;
 }
 export const postNewUser = async (req,res)=>{
     const {username} = req.body;

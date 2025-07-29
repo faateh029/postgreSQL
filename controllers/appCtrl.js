@@ -1,5 +1,5 @@
 import {pool} from '../db/pool.js';
-import { getUserNames , postNewUser, searchUsernames , deleteHelper } from '../db/queries.js';
+import { getUserNames , postNewUser, searchUsernames , deleteHelper  , paginatedResults} from '../db/queries.js';
 
 
 export const getController = async (req , res)=>{
@@ -17,7 +17,7 @@ export const getController = async (req , res)=>{
         //console.log(req.query.search , result.rows);
         return res.status(200).json(result);
     }
-     result = await getUserNames();
+     result = await paginatedResults(req,res);
      res.status(200).json(result);
 }
 
