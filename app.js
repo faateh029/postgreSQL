@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 5000
 const app = express();
 
 app.use(express.json());
-
+//app.use('/' , appRouter);
 const users = [
     {id:1 , name:'user 1'},
     {id:2 , name:'user 2'},
@@ -22,13 +22,41 @@ const users = [
     {id:14 , name:'user 14'},
      {id:15 , name:'user 15'}
 ]
-app.get('/users' , (req ,res)=>{
-    const page = parseInt(req.query.page) ; 
+
+const posts = [
+    {id:1 , name:'posts 1'},
+    {id:2 , name:'posts 2'},
+    {id:3 , name:'posts 3'},
+    {id:4 , name:'posts 4'},
+    {id:5 , name:'posts 5'},
+    {id:6 , name:'posts 6'},
+    {id:7 , name:'posts 7'},
+    {id:8 , name:'posts 8'},
+    {id:9 , name:'posts 9'},
+    {id:10 , name:'posts 10'},
+    {id:11 , name:'posts 11'},
+    {id:12 , name:'posts 12'},
+    {id:13 , name:'posts 13'},
+    {id:14 , name:'posts 14'},
+    {id:15 , name:'posts 15'}
+]
+
+app.get('/posts',  paginatedResults(posts) , (req,res)=>{
+    res.json(res.paginatedResults);
+})
+app.get('/users' ,paginatedResults(users) ,  (req ,res)=>{
+   res.json(res.paginatedResults)
+})
+
+
+function paginatedResults(model){
+    return (req,res,next)=>{
+          const page = parseInt(req.query.page) ; 
     const limit = parseInt(req.query.limit);
     const startIndex = (page-1)*limit;
     const endIndex = page*limit;
     const results = {};
-    if(endIndex<users.length){
+    if(endIndex<model.length){
          results.next = {
         page: page+1,
         limit:limit
@@ -41,11 +69,11 @@ app.get('/users' , (req ,res)=>{
         limit:limit
     }  
     }
-    results.results =users.slice(startIndex, endIndex);
-    res.json(results)
-})
-//app.use('/' , appRouter);
-
+    results.results =model.slice(startIndex, endIndex);
+    res.paginatedResults = results ;
+    next();
+    }
+}
 app.listen(PORT , (req,res)=>{
     console.log(`server running on port ${PORT}`);
 })
