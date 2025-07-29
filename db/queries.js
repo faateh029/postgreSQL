@@ -11,7 +11,8 @@ export const postNewUser = async (req,res)=>{
 
 export const searchUsernames= async(req,res)=>{
      const searchItem = req.query.search;
-     const result = await pool.query(`SELECT * FROM usernames WHERE username ILIKE $1` , [`%${searchItem}%`]);
+     const result = await pool.query(`SELECT * FROM usernames WHERE username ILIKE $1` , 
+        [`%${searchItem}%`]);
     
     return result.rows;
 }

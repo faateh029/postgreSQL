@@ -17,7 +17,7 @@ export const getController = async (req , res)=>{
 export const postController = async (req,res)=>{
     console.log("postController() running");
     await postNewUser(req,res);
-    res.status(200).json();
+    res.status(200).json({msg:"user added successfully"});
 }
 
 
