@@ -3,7 +3,14 @@ import { getUserNames , postNewUser, searchUsernames , deleteHelper } from '../d
 
 
 export const getController = async (req , res)=>{
-    console.log("getController() running" );
+  
+    try {
+         
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({msg:"server side error"}) 
+    }
+    console.log("getController() running");
     let result='';
     if(req.query.search){
         result = await searchUsernames(req,res);

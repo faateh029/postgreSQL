@@ -1,9 +1,16 @@
 import {pool} from './pool.js';
-export const getUserNames = async ()=>{ 
-   const result = await pool.query("SELECT * FROM usernames");  
-   return result.rows;
-}
+// export const getUserNames = async ()=>{ 
+//    const result = await pool.query("SELECT * FROM usernames");  
+//    return result.rows;
+// }
+const paginatedResults = async (req,res)=>{
+      const page = parseInt(req.query.page) ||1; 
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page-1)*limit;
+       const result = await pool.query(`SELECT * FROM usernames ORDER BY LIMIT $1 OFFSET $2` , [limit,offset])
 
+       return result.rows;
+}
 export const postNewUser = async (req,res)=>{
     const {username} = req.body;
     await pool.query("INSERT INTO usernames (username) VALUES ($1) " , [username]);
