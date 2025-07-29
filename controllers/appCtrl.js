@@ -6,12 +6,12 @@ export const getController = async (req , res)=>{
   
    
     console.log("getController() running");
-    let result={};
-    // if(req.query.search){
-    //     result = await searchUsernames(req,res);
-    //     //console.log(req.query.search , result.rows);
-    //     return res.status(200).json(result);
-    // }
+    let result='';
+    if(req.query.search){
+        result = await searchUsernames(req,res);
+        //console.log(req.query.search , result.rows);
+        return res.status(200).json(result);
+    }
     console.log("before pagination")
      result = await paginatedResults(req,res);
      console.log("after pagination")
